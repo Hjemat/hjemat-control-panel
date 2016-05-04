@@ -1,0 +1,28 @@
+<div *ngIf="device">
+    <h2>{{(product || unknownProduct).name}}</h2>
+    <div>{{(product || unknownProduct).description || "fgh"}}</div>
+    <div><label>id: </label>{{device.deviceID}}</div>
+
+    <div *ngIf="product && device">
+        <ul class="values">
+            <li *ngFor="let value of product.values">
+                <h3>{{value.name}}</h3>
+                <p>{{value.description}}</p>
+                <div *ngIf="!value.type || value.type === 'number'">
+                    <label>{{device.values[value.id]}} {{value.suffix || ""}}</label>
+                </div>
+                <div *ngIf="value.type === 'bool'">
+                    <span *ngIf="device.values[value.id] === 0">{{value.falseLabel || "false"}}</span>
+                    <span *ngIf="device.values[value.id] === 1">{{value.trueLabel || "true"}}</span>
+                </div>
+                <div *ngIf="!value.readonly || value.readonly === false">
+                    <div *ngIf="value.type === 'bool'">
+                        <button *ngIf="device.values[value.id] === 0">{{value.setTrueLabel || "set true"}}</button>
+                        <button *ngIf="device.values[value.id] === 1">{{value.setFalseLabel || "set false"}}</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <button (click)="goBack()">Back</button>
+</div>
