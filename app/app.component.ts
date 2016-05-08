@@ -5,6 +5,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 // Services
 import { DeviceService }     from './device.service';
 import { ProductService } from './product.service';
+import {WebSocketService} from './websocket.service';
 
 // Components
 import { DevicesComponent } from './devices.component';
@@ -46,7 +47,8 @@ import { DeviceDetailComponent } from './device-detail.component';
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
         DeviceService,
-        ProductService]
+        ProductService,
+        WebSocketService]
 })
 export class AppComponent {
     title = 'Hjemat Control Panel';

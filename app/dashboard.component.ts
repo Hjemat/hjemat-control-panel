@@ -6,6 +6,7 @@ import { Product } from './product';
 import { DeviceService } from './device.service';
 import { ProductService }from './product.service';
 
+
 @Component({
     selector: 'my-dashboard',
     templateUrl: 'app/dashboard.component.html',

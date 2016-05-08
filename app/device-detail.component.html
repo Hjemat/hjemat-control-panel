@@ -17,8 +17,10 @@
                 </div>
                 <div *ngIf="!value.readonly || value.readonly === false">
                     <div *ngIf="value.type === 'bool'">
-                        <button *ngIf="device.values[value.id] === 0">{{value.setTrueLabel || "set true"}}</button>
-                        <button *ngIf="device.values[value.id] === 1">{{value.setFalseLabel || "set false"}}</button>
+                        <button *ngIf="device.values[value.id] === 0"
+                                (click)="onToggleClicked(value.id, 1)">{{value.setTrueLabel || "set true"}}</button>
+                        <button *ngIf="device.values[value.id] === 1"
+                                (click)="onToggleClicked(value.id, 0)">{{value.setFalseLabel || "set false"}}</button>
                     </div>
                 </div>
             </li>
