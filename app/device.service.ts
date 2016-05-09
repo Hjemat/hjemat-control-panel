@@ -6,7 +6,7 @@ import {Observable}     from 'rxjs/Observable';
 @Injectable()
 export class DeviceService {
     constructor(private http: Http) { }
-    private _devicesUrl = 'http://192.168.1.177/api/devices/';  // URL to web api
+    private _devicesUrl = 'http://10.130.145.165//api/devices/';  // URL to web api
     getDevices(): Observable<Device[]> {
         return this.http.get(this._devicesUrl)
             .map(this.extractData)

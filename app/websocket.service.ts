@@ -6,7 +6,7 @@ import {Http, Response} from '@angular/http';
 @Injectable()
 export class WebSocketService {
     constructor(private http: Http) { }
-    private _webSocketUrl = 'ws://192.168.1.177:8010/';  // URL to web api
+    private _webSocketUrl = 'ws://10.130.145.165:8010/';  // URL to web api
 
     public webSocket: WebSocket = new WebSocket(this._webSocketUrl); 
 

@@ -1,30 +1,34 @@
 <div *ngIf="device">
     <h2>{{(product || unknownProduct).name}}</h2>
-    <div>{{(product || unknownProduct).description || "fgh"}}</div>
-    <div><label>id: </label>{{device.deviceID}}</div>
+    <p>{{(product || unknownProduct).description || ""}}</p>
+    <md-input placeholder="Custom Name" value='{{(deviceCustomization || {"name": ""}).name}}' #customName></md-input>
+    <button md-button (click)="onSetName(customName.value)">Save</button>
 
     <div *ngIf="product && device">
-        <ul class="values">
-            <li *ngFor="let value of product.values">
-                <h3>{{value.name}}</h3>
-                <p>{{value.description}}</p>
-                <div *ngIf="!value.type || value.type === 'number'">
-                    <label>{{device.values[value.id]}} {{value.suffix || ""}}</label>
-                </div>
-                <div *ngIf="value.type === 'bool'">
-                    <span *ngIf="device.values[value.id] === 0">{{value.falseLabel || "false"}}</span>
-                    <span *ngIf="device.values[value.id] === 1">{{value.trueLabel || "true"}}</span>
-                </div>
-                <div *ngIf="!value.readonly || value.readonly === false">
-                    <div *ngIf="value.type === 'bool'">
-                        <button *ngIf="device.values[value.id] === 0"
-                                (click)="onToggleClicked(value.id, 1)">{{value.setTrueLabel || "set true"}}</button>
-                        <button *ngIf="device.values[value.id] === 1"
-                                (click)="onToggleClicked(value.id, 0)">{{value.setFalseLabel || "set false"}}</button>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <div class="values">
+            <md-card *ngFor="let value of product.values">
+
+                <md-card-subtitle>{{value.description}}</md-card-subtitle>
+
+                <md-card-title>{{value.name}}</md-card-title>
+
+                <md-card-content *ngIf="!value.type || value.type === 'number'">
+                    <p>{{device.values[value.id]}} {{value.suffix || ""}}</p>
+                </md-card-content>
+                <md-card-content *ngIf="value.type === 'bool'">
+                    <p *ngIf="device.values[value.id] === 0">{{value.falseLabel || "false"}}</p>
+                    <p *ngIf="device.values[value.id] === 1">{{value.trueLabel || "true"}}</p>
+                </md-card-content>
+                <md-card-actions *ngIf="(!value.readonly || value.readonly === false) && value.type === 'bool'">
+                    <button md-button *ngIf="device.values[value.id] === 0" (click)="onToggleClicked(value.id, 1)">
+                        {{value.setTrueLabel || "set true"}}</button>
+                    <button md-button *ngIf="device.values[value.id] === 1" (click)="onToggleClicked(value.id, 0)">
+                        {{value.setFalseLabel || "set false"}}</button>
+                </md-card-actions>
+            </md-card>
+        </div>
     </div>
-    <button (click)="goBack()">Back</button>
+</div>
+<div class="content" *ngIf="!device">
+    <md-spinner></md-spinner>
 </div>

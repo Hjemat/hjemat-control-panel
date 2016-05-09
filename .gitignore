@@ -9,7 +9,7 @@ link-checker-results.txt
 *.js.map
 _test-output
 _temp
-
+**/.DS_Store
 !**/*e2e-spec.js
 !karma*.js
 !protractor*.js

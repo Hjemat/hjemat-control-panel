@@ -13,7 +13,9 @@
                 "trueLabel": "Turned on",
                 "falseLabel": "Turned off",
                 "setTrueLabel": "Turn on",
-                "setFalseLabel": "Turn off"
+                "setFalseLabel": "Turn off",
+                
+                "primary": true
             }
         ]
     },
@@ -28,7 +30,9 @@
                 "description": "The temperature of the thermometer's location",
                 "type": "number",
                 "readonly": true,
-                "suffix": "°C"
+                "suffix": "°C",
+                
+                "primary": true
             }
         ]
     }

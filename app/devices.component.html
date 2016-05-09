@@ -1,13 +1,25 @@
-<h2>Connected Devices</h2>
-<ul class="devices">
-    <li *ngFor="let device of devices" [class.selected]="device === selectedDevice" (click)="onSelect(device)">
-        <span class="badge">{{device.deviceID}}</span> {{(products[device.productID] || unknownProduct).name}}
-    </li>
-</ul>
-<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
-<div *ngIf="selectedDevice">
-    <h2>
-        {{selectedProduct.name | uppercase}} is my device
-      </h2>
-    <button (click)="gotoDetail()">View Details</button>
+<div *ngIf="loaded">
+    <md-card *ngFor="let device of devices">
+        <md-card-subtitle>
+            {{(products[device.productID] || unknownProduct).name}}
+        </md-card-subtitle>
+        
+        <md-card-title *ngIf="!deviceCustomizations">{{(products[device.productID] || unknownProduct).name}}</md-card-title>
+        
+        <md-card-title *ngIf="deviceCustomizations">
+            {{(deviceCustomizations[device.deviceID] || products[device.productID] || unknownProduct).name}}
+        </md-card-title>
+        
+        <md-card-content md-line *ngIf="primaryValueTexts && primaryValueTexts[device.deviceID]">
+            {{primaryValueTexts[device.deviceID]}}
+        </md-card-content>
+        
+        <md-card-actions>
+            <button md-button (click)="gotoDetail(device)">Details</button>
+        </md-card-actions>
+    </md-card>
 </div>
+<div *ngIf="!loaded">
+    <md-spinner></md-spinner>
+</div>
+<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>

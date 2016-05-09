@@ -2,5 +2,22 @@ export class Product {
     productID: number;
     name: string;
     description: string;
-    values: { [id: number]: number };
+    values: ProductValue[];
+}
+
+export class ProductValue {
+    id: number;
+    primary: boolean;
+    name: string;
+    description: string;
+
+    type: string;
+    readonly: Boolean;
+
+    suffix: string;
+    
+    trueLabel: string;
+    falseLabel: string;
+    setTrueLabel: string;
+    setFalseLabel: string;
 }

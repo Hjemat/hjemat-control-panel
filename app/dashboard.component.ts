@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
         private productService: ProductService) {
     }
     ngOnInit() {
+        
+
         this.deviceService.getDevices()
             .subscribe(
             devices => this.devices = devices.slice(0, 4),

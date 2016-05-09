@@ -1,33 +1,27 @@
-h2 { 
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;   
-  font-weight: lighter;
+body {
+    font-family: Roboto;
+    padding: 0;
+    margin:0;
 }
-body { 
-  margin: 2em; 
+
+paper-header-panel {
+    height: 5em;
 }
-body, input[text], button { 
-  color: #888; 
-  font-family: Cambria, Georgia; 
+
+md-card {
+    min-width: 15em;
+    margin: 1em;
+    display: inline-block !important;
 }
-button {
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  cursor: hand;
+
+div.content {
+    margin: 1em;
 }
-button:hover {
-  background-color: #cfd8dc;
+
+md-spinner {
+    margin: 3em;
 }
-button:disabled {
-  background-color: #eee;
-  color: #aaa; 
-  cursor: auto;
-}
-/* everywhere else */
-* { 
-  font-family: Arial, Helvetica, sans-serif; 
+
+.back-button {
+    min-width: 2em;
 }
