@@ -13,6 +13,7 @@ export class ProductValue {
 
     type: string;
     readonly: Boolean;
+    readPeriodically: Boolean;
 
     suffix: string;
     

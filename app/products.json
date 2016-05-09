@@ -30,6 +30,7 @@
                 "description": "The temperature of the thermometer's location",
                 "type": "number",
                 "readonly": true,
+                "readPeriodically": true,
                 "suffix": "°C",
                 
                 "primary": true

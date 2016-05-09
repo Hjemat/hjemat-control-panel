@@ -14,8 +14,8 @@ import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
 
 @Component({
-    selector: 'my-device-detail',
-    templateUrl: 'app/device-detail.component.html',
+    selector: 'device-pair',
+    templateUrl: 'app/device-pair.component.html',
     //styleUrls: ['app/device-detail.component.css'],
     directives: [
         MdSpinner,
@@ -27,7 +27,7 @@ import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
         MdIconRegistry
     ]
 })
-export class DeviceDetailComponent implements OnInit {
+export class DevicePairComponent implements OnInit {
     constructor(
         private deviceService: DeviceService,
         private productService: ProductService,
@@ -43,22 +43,22 @@ export class DeviceDetailComponent implements OnInit {
 
     unknownProduct: Product;
 
+    pairButtonText: string = "Begin Pairing";
+
+    pairing: boolean = false;
+
     ngOnInit() {
-        this.unknownProduct = new Product();
-
-        this.unknownProduct.name = "Unknown Device";
-        this.unknownProduct.description = "An unknown product";
-
-        let id = +this.routeParams.get('id');
-        this.deviceService.getDevice(id)
-            .subscribe(
-            device => this.setupDevice(device),
-            error => this.errorMessage = <any>error);
-
-
-
         this.webSocketService.webSocket.addEventListener("message", ev => this.onMessage(ev));
-        
+    }
+
+    onBeginPair() {
+        this.webSocketService.beginPair();
+        this.pairing = true;
+    }
+
+    onEndPair() {
+        this.webSocketService.endPair();
+        this.pairing = false;
     }
 
     onMessage(ev: MessageEvent) {

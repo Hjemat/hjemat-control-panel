@@ -12,6 +12,7 @@ import { DeviceCustomizationService } from './device-customization.service';
 import { DevicesComponent } from './devices.component';
 import { DashboardComponent } from './dashboard.component';
 import { DeviceDetailComponent } from './device-detail.component';
+import { DevicePairComponent } from './device-pair.component';
 
 // Material Design
 import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
@@ -37,6 +38,11 @@ import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
         name: 'DeviceDetail',
         component: DeviceDetailComponent
     },
+    {
+        path: '/pair',
+        name: 'DevicePair',
+        component: DevicePairComponent
+    }
 ])
 
 @Component({

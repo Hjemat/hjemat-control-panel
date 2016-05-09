@@ -13,6 +13,7 @@ import { MdSpinner } from '@angular2-material/progress-circle'
 import { DeviceCustomization } from './device-customization';
 import { DeviceCustomizationService } from './device-customization.service';
 import { MyToolbar } from './my-toolbar.component';
+import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
 
 @Component({
   selector: 'my-devices',
@@ -23,7 +24,11 @@ import { MyToolbar } from './my-toolbar.component';
     MdButton,
     MD_CARD_DIRECTIVES,
     MdSpinner,
-    MyToolbar]
+    MyToolbar,
+    MdIcon],
+  providers: [
+    MdIconRegistry
+  ]
 })
 export class DevicesComponent implements OnInit {
   constructor(

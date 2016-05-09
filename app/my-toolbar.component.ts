@@ -9,10 +9,7 @@ import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
 @Component({
     selector: 'my-toolbar',
     template: `
-    <md-toolbar>
-        <button *ngIf="showBack" md-icon-button (click)="gotoDevices()"><md-icon>arrow_back</md-icon></button>
-        <span>{{title}}</span>
-    </md-toolbar>
+    
   `,
     directives: [
         MdButton,

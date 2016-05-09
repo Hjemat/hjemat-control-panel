@@ -25,6 +25,11 @@
                     <button md-button *ngIf="device.values[value.id] === 1" (click)="onToggleClicked(value.id, 0)">
                         {{value.setFalseLabel || "set false"}}</button>
                 </md-card-actions>
+                <md-card-actions *ngIf="value.readPeriodically == true">
+                    <button md-icon-button>
+                        <md-icon>refresh</md-icon>
+                    </button>
+                </md-card-actions>
             </md-card>
         </div>
     </div>

@@ -1,0 +1,4 @@
+<p>Pair with new devices. Press to Begin Pairing button to begin!</p>
+<button md-raised-button *ngIf="!pairing" (click)="onBeginPair()">Begin Pairing</button>
+<button md-raised-button *ngIf="pairing" (click)="onEndPair()">End Pairing</button>
+<md-spinner *ngIf="pairing"></md-spinner>
