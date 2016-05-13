@@ -1,4 +1,21 @@
 <p>Pair with new devices. Press to Begin Pairing button to begin!</p>
-<button md-raised-button *ngIf="!pairing" (click)="onBeginPair()">Begin Pairing</button>
+<p *ngIf="!isConnected">{{connectionStatus}}
+    <button md-button *ngIf="showRetry" class="retry-button" (click)="connectWebSocket()">Retry</button></p>
+<button md-raised-button *ngIf="!pairing" (click)="onBeginPair()" [disabled]="!isConnected">Begin Pairing</button>
 <button md-raised-button *ngIf="pairing" (click)="onEndPair()">End Pairing</button>
+
+<div *ngIf="devices">
+    <md-card *ngFor="let device of devices">
+        <md-card-subtitle>
+            {{(products[device.productID] || unknownProduct).name}}
+        </md-card-subtitle>
+        
+        <md-card-title *ngIf="!deviceCustomizations">{{(products[device.productID] || unknownProduct).name}}</md-card-title>
+        
+        <md-card-title *ngIf="deviceCustomizations">
+            {{(deviceCustomizations[device.deviceID] || products[device.productID] || unknownProduct).name}}
+        </md-card-title>
+    </md-card>
+</div>
+
 <md-spinner *ngIf="pairing"></md-spinner>

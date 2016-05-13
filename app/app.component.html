@@ -1,0 +1,19 @@
+<md-sidenav-layout fullscreen>
+    <md-sidenav #start>
+        <md-nav-list>
+            <a md-list-item [routerLink]="['devices']">Devices</a>
+            <a md-list-item [routerLink]="['pair']">Pair Devices</a>
+        </md-nav-list>
+    </md-sidenav>
+    <div>
+
+        <md-toolbar color="primary">
+            <md-icon (click)="start.open()">menu</md-icon>
+            <h1>Hjemat Control Panel</h1>
+        </md-toolbar>
+
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</md-sidenav-layout>

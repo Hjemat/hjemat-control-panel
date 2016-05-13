@@ -1,5 +1,4 @@
 import {Component, OnInit } from '@angular/core';
-import { RouteParams } from '@angular/router-deprecated';
 import {Device} from './device';
 import {Product} from './product';
 import { DeviceCustomization } from './device-customization';
@@ -31,24 +30,67 @@ export class DevicePairComponent implements OnInit {
     constructor(
         private deviceService: DeviceService,
         private productService: ProductService,
-        private routeParams: RouteParams,
         private webSocketService: WebSocketService,
         private dcService: DeviceCustomizationService) {
     }
 
-    device: Device;
-    product: Product;
+    devices: Device[] = [];
+    products: { [id: number]: Product };
     errorMessage: string;
     deviceCustomization: DeviceCustomization;
+    connectionStatus: string = "Not connected to server";
+    showConnectionStatus: boolean = true;
+    showRetry: boolean = false;
 
-    unknownProduct: Product;
+    disconnectedString: string = "Lost connection to server";
+    connectingString: string = "Connecting to server...";
+    notConnectedString: string = "Not connected to server";
 
-    pairButtonText: string = "Begin Pairing";
+    isConnected: boolean = false;
+
+
+    unknownProduct: Product = new Product();
 
     pairing: boolean = false;
 
     ngOnInit() {
-        this.webSocketService.webSocket.addEventListener("message", ev => this.onMessage(ev));
+        this.webSocketService.connect();
+
+        if (this.webSocketService.isOpen()) {
+            this.showRetry = false;
+            this.isConnected = true;
+        }
+        else if (this.webSocketService.isConnecting()) {
+            this.showRetry = false;
+
+            this.connectionStatus = this.connectingString;
+            this.isConnected = false;
+        }
+        else {
+            this.showRetry = true;
+
+            this.connectionStatus = this.notConnectedString;
+            this.isConnected = false;
+        }
+
+        this.unknownProduct.name = "Unknown Device";
+        this.unknownProduct.description = "An unknown product";
+
+        this.webSocketService.message.subscribe(ev => this.onMessage(ev));
+        this.webSocketService.open.subscribe(ev => {
+            this.showRetry = false;
+            this.isConnected = true;
+        });
+        
+        this.webSocketService.close.subscribe(ev => {
+            this.connectionStatus = this.disconnectedString;
+            this.showRetry = true;
+            this.pairing = false;
+            this.isConnected = false;
+        });
+        this.productService.getProducts().subscribe(products => this.products = products);
+
+        
     }
 
     onBeginPair() {
@@ -66,72 +108,17 @@ export class DevicePairComponent implements OnInit {
 
         var message = JSON.parse(ev.data);
 
-        if (message.commandType === 2 && message.deviceID === this.device.deviceID) {
-            this.device.values[message.valueID] = message.value;
+        if (message.commandType === 6) {
+            this.devices.push(message.device);
         }
     }
 
-    onConnect() {
-        var values = this.product.values;
+    connectWebSocket() {
+        this.webSocketService.connect();
 
-        var valuesToCheck = values.filter(value => value.readPeriodically === true);
-        if (valuesToCheck.length > 0) {
-            valuesToCheck.forEach(value => {
-                this.webSocketService.requestValue(this.device.deviceID, value.id);
-            });
-        }
-    }
-
-    setupDevice(device: Device) {
-        this.device = device;
-        this.productService.getProducts()
-            .subscribe(
-            products => this.onProductsLoaded(products),
-            error => this.errorMessage = <any>error)
-
-        this.dcService.getDeviceCustomization(device.deviceID)
-            .subscribe(
-            dc => this.deviceCustomization = dc,
-            error => this.errorMessage = <any>error);
-
-
-
-
-    }
-
-    onProductsLoaded(products: { [id: number]: Product }) {
-        this.product = products[this.device.productID];
-
-        if (this.webSocketService.isConnected) {
-            this.onConnect();
-        }
-        
-        this.webSocketService.webSocket.addEventListener("open", ev => this.onConnect());
-    }
-
-    onToggleClicked(id: number, value: number) {
-        this.webSocketService.sendCommand(this.device.deviceID, id, value);
-    }
-
-    onRefresh(id: number){
-        this.webSocketService.requestValue(this.device.deviceID, id);
-    }
-
-    onSetName(name: string) {
-        if (!name) { return; }
-
-        var dc: DeviceCustomization = new DeviceCustomization();
-        dc.id = this.device.deviceID;
-        dc.name = name;
-
-        this.dcService.addDeviceCustomization(dc)
-            .subscribe(
-            dc => this.deviceCustomization = dc,
-            error => this.errorMessage = <any>error);
-    }
-
-    goBack() {
-        window.history.back();
+        this.showConnectionStatus = true;
+        this.showRetry = false;
+        this.connectionStatus = this.connectingString;
     }
 
 }

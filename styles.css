@@ -1,7 +1,7 @@
 body {
     font-family: Roboto;
     padding: 0;
-    margin:0;
+    margin: 0;
 }
 
 paper-header-panel {
@@ -24,4 +24,25 @@ md-spinner {
 
 .back-button {
     min-width: 2em;
+}
+
+.retry-button {
+    margin-left: 1em !important;
+}
+
+md-sidenav {
+    min-width: 10em !important;
+}
+
+md-sidenav md-button {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    margin: 24px 0;
+}
+
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox.  
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
 }

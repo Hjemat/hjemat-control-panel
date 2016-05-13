@@ -1,6 +1,6 @@
 import { Component, OnInit }       from '@angular/core';
 import { HTTP_PROVIDERS }    from '@angular/http';
-import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Router, Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 // Services
 import { DeviceService }     from './device.service';
@@ -20,49 +20,28 @@ import { MdButton } from '@angular2-material/button';
 import { MdToolbar } from '@angular2-material/toolbar';
 import { MdSpinner } from '@angular2-material/progress-circle';
 import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
+import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 
-@RouteConfig([
-    {
-        path: '/devices',
-        name: 'Devices',
-        component: DevicesComponent,
-        useAsDefault: true
-    },
-    {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: DashboardComponent
-    },
-    {
-        path: '/detail/:id',
-        name: 'DeviceDetail',
-        component: DeviceDetailComponent
-    },
-    {
-        path: '/pair',
-        name: 'DevicePair',
-        component: DevicePairComponent
-    }
+
+@Routes([
+    { path: '/devices',    component: DevicesComponent },
+    { path: '/dashboard',  component: DashboardComponent },
+    { path: '/detail/:id', component: DeviceDetailComponent },
+    { path: '/pair',       component: DevicePairComponent },
+    { path: '*',           component: DevicesComponent}
 ])
 
 @Component({
     selector: 'my-app',
-    template: `
-    <md-toolbar>
-        <button *ngIf="showBack" md-icon-button (click)="gotoDevices()"><md-icon>arrow_back</md-icon></button>
-        <span>{{title}}</span>
-    </md-toolbar>
-    <div class="content">
-        <router-outlet>
-        </router-outlet>
-    </div>
-  `,
+    templateUrl: 'app/app.component.html',
+    styleUrls: ['app/app.component.css'],
     directives: [
         ROUTER_DIRECTIVES,
         MD_LIST_DIRECTIVES,
         MdButton,
         MdToolbar,
         MdSpinner,
+        MD_SIDENAV_DIRECTIVES,
         MdIcon],
     providers: [
         ROUTER_PROVIDERS,

@@ -13,7 +13,8 @@
     '@angular2-material/card': 'node_modules/@angular2-material/card',
     '@angular2-material/input': 'node_modules/@angular2-material/input',
     '@angular2-material/progress-circle': 'node_modules/@angular2-material/progress-circle',
-    '@angular2-material/icon': 'node_modules/@angular2-material/icon'
+    '@angular2-material/icon': 'node_modules/@angular2-material/icon',
+    '@angular2-material/sidenav': 'node_modules/@angular2-material/sidenav'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
@@ -75,6 +76,11 @@
       format: 'cjs',
       defaultExtension: 'js',
       main: 'icon.js'
+    },
+    '@angular2-material/sidenav': {
+      format: 'cjs',
+      defaultExtension: 'js',
+      main: 'sidenav.js'
     }
   };
 

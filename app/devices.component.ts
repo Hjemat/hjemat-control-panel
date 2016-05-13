@@ -5,9 +5,9 @@ import {DeviceDetailComponent} from './device-detail.component';
 import {DeviceService} from './device.service';
 import {Product, ProductValue} from './product';
 import {ProductService} from './product.service';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import { MD_LIST_DIRECTIVES } from '@angular2-material/list'
-import { MdButton } from '@angular2-material/button'
+import { MdButton, MdAnchor } from '@angular2-material/button'
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card'
 import { MdSpinner } from '@angular2-material/progress-circle'
 import { DeviceCustomization } from './device-customization';
@@ -25,7 +25,8 @@ import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
     MD_CARD_DIRECTIVES,
     MdSpinner,
     MyToolbar,
-    MdIcon],
+    MdIcon,
+    MdAnchor],
   providers: [
     MdIconRegistry
   ]
@@ -79,10 +80,10 @@ export class DevicesComponent implements OnInit {
       products => { this.products = products; this.onProductsLoaded() },
       error => this.errorMessage = <any>error);
 
-    this.dcService.getDeviceCustomizations()
+    /*this.dcService.getDeviceCustomizations()
             .subscribe(
             dcs => this.deviceCustomizations = dcs,
-            error => this.errorMessage = <any>error);
+            error => this.errorMessage = <any>error);*/
   }
 
   onProductsLoaded() {
@@ -130,16 +131,21 @@ export class DevicesComponent implements OnInit {
   }
 
   gotoSelectedDetail() {
-    let link = ['DeviceDetail', { id: this.selectedDevice.deviceID }];
+    let link = ['/detail', this.selectedDevice.deviceID ];
     this.router.navigate(link);
   }
 
   gotoDetail(device: Device) {
-    let link = ['DeviceDetail', { id: device.deviceID }];
+    let link = ['/detail', device.deviceID ];
     this.router.navigate(link);
   }
 
-  test() {
+  gotoPair() {
+    let link = ["/pair"];
+    this.router.navigate(link);
+  }
+
+  refreshDevices() {
     console.log(this.devices);
   }
 }

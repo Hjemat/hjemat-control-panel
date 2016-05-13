@@ -1,8 +1,8 @@
 <div *ngIf="device">
     <h2>{{(product || unknownProduct).name}}</h2>
     <p>{{(product || unknownProduct).description || ""}}</p>
-    <md-input placeholder="Custom Name" value='{{(deviceCustomization || {"name": ""}).name}}' #customName></md-input>
-    <button md-button (click)="onSetName(customName.value)">Save</button>
+    <!--<md-input placeholder="Custom Name" value='{{(deviceCustomization || {"name": ""}).name}}' #customName></md-input>
+    <button md-button (click)="onSetName(customName.value)">Save</button>-->
 
     <div *ngIf="product && device">
         <div class="values">
@@ -19,14 +19,15 @@
                     <p *ngIf="device.values[value.id] === 0">{{value.falseLabel || "false"}}</p>
                     <p *ngIf="device.values[value.id] === 1">{{value.trueLabel || "true"}}</p>
                 </md-card-content>
-                <md-card-actions *ngIf="(!value.readonly || value.readonly === false) && value.type === 'bool'">
-                    <button md-button *ngIf="device.values[value.id] === 0" (click)="onToggleClicked(value.id, 1)">
+                <md-card-actions >
+                    <span *ngIf="(!value.readonly || value.readonly === false) && value.type === 'bool'">
+                        <button md-button *ngIf="device.values[value.id] === 0" (click)="onToggleClicked(value.id, 1)">
                         {{value.setTrueLabel || "set true"}}</button>
-                    <button md-button *ngIf="device.values[value.id] === 1" (click)="onToggleClicked(value.id, 0)">
+                        <button md-button *ngIf="device.values[value.id] === 1" (click)="onToggleClicked(value.id, 0)">
                         {{value.setFalseLabel || "set false"}}</button>
-                </md-card-actions>
-                <md-card-actions *ngIf="value.readPeriodically == true">
-                    <button md-icon-button>
+                    </span>
+                    <span class="example-fill-remaining-space"></span>
+                    <button md-icon-button (click)="refreshValues()">
                         <md-icon>refresh</md-icon>
                     </button>
                 </md-card-actions>

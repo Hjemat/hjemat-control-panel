@@ -36,5 +36,24 @@
                 "primary": true
             }
         ]
+    },
+    {
+        "id": 3,
+        "name": "Reed Relay",
+        "description": "Tells if a magnet is close. Is used to tell if something is open",
+        "values": [
+            {
+                "id": 1,
+                "name": "Contact Status",
+                "description": "Whether a magnet is close",
+                "type": "bool",
+                "readonly": true,
+                
+                "trueLabel": "Closed",
+                "falseLabel": "Open",
+                
+                "primary": true
+            }
+        ]
     }
 ]

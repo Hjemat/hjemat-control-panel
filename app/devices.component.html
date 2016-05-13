@@ -1,25 +1,32 @@
+<p>Devices which have been paired. Pair devices in the side nav</p>
+
 <div *ngIf="loaded">
-    <md-card *ngFor="let device of devices">
-        <md-card-subtitle>
-            {{(products[device.productID] || unknownProduct).name}}
-        </md-card-subtitle>
-        
-        <md-card-title *ngIf="!deviceCustomizations">{{(products[device.productID] || unknownProduct).name}}</md-card-title>
-        
-        <md-card-title *ngIf="deviceCustomizations">
-            {{(deviceCustomizations[device.deviceID] || products[device.productID] || unknownProduct).name}}
-        </md-card-title>
-        
-        <md-card-content md-line *ngIf="primaryValueTexts && primaryValueTexts[device.deviceID]">
-            {{primaryValueTexts[device.deviceID]}}
-        </md-card-content>
-        
-        <md-card-actions>
-            <button md-button (click)="gotoDetail(device)">Details</button>
-        </md-card-actions>
-    </md-card>
-    <button md-fab>
-        <md-icon class="md-24">add</md-icon>
+    <p *ngIf="devices.length < 1">
+        No devices paired
+    </p>
+    <span *ngIf="devices.length > 0">
+        <md-card *ngFor="let device of devices">
+            <md-card-subtitle>
+                {{(products[device.productID] || unknownProduct).name}}
+            </md-card-subtitle>
+            
+            <md-card-title *ngIf="!deviceCustomizations">{{(products[device.productID] || unknownProduct).name}}</md-card-title>
+            
+            <md-card-title *ngIf="deviceCustomizations">
+                {{(deviceCustomizations[device.deviceID] || products[device.productID] || unknownProduct).name}}
+            </md-card-title>
+            
+            <md-card-content md-line *ngIf="primaryValueTexts && primaryValueTexts[device.deviceID]">
+                {{primaryValueTexts[device.deviceID]}}
+            </md-card-content>
+            
+            <md-card-actions>
+                <button md-button (click)="gotoDetail(device)">Details</button>
+            </md-card-actions>
+        </md-card>
+    </span>
+    <button md-button (click)="refreshDevices()">
+        Refresh Devices
     </button>
 </div>
 <div *ngIf="!loaded">
